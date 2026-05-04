@@ -1,38 +1,187 @@
-.App {
-  text-align: center;
+/* App.css - Main Application Styles */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+/* CSS Custom Properties / Variables */
+:root {
+  /* Light theme colors */
+  --bg-primary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  --bg-secondary: rgba(255, 255, 255, 0.95);
+  --bg-glass: rgba(255, 255, 255, 0.1);
+  --text-primary: #2d3748;
+  --text-secondary: #4a5568;
+  --text-muted: #718096;
+  --accent-primary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  --accent-secondary: #667eea;
+  --border-color: rgba(255, 255, 255, 0.2);
+  --shadow-primary: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  --shadow-glass: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+  --sidebar-bg: rgba(255, 255, 255, 0.9);
+  --chat-bg: rgba(255, 255, 255, 0.8);
+  --user-bubble: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  --ai-bubble: rgba(255, 255, 255, 0.9);
+  --input-bg: rgba(255, 255, 255, 0.9);
+  --hover-overlay: rgba(255, 255, 255, 0.1);
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+/* Dark theme colors */
+body.dark-mode {
+  --bg-primary: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+  --bg-secondary: rgba(26, 26, 46, 0.95);
+  --bg-glass: rgba(255, 255, 255, 0.05);
+  --text-primary: #f7fafc;
+  --text-secondary: #e2e8f0;
+  --text-muted: #a0aec0;
+  --accent-primary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  --accent-secondary: #667eea;
+  --border-color: rgba(255, 255, 255, 0.1);
+  --shadow-primary: 0 20px 25px -5px rgba(0, 0, 0, 0.5), 0 10px 10px -5px rgba(0, 0, 0, 0.2);
+  --shadow-glass: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+  --sidebar-bg: rgba(26, 26, 46, 0.8);
+  --chat-bg: rgba(26, 26, 46, 0.6);
+  --user-bubble: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  --ai-bubble: rgba(255, 255, 255, 0.08);
+  --input-bg: rgba(255, 255, 255, 0.05);
+  --hover-overlay: rgba(255, 255, 255, 0.05);
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
+/* Global Styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  background: var(--bg-primary);
+  overflow: hidden;
+  height: 100vh;
+  transition: all 0.3s ease;
+}
+
+body.light-mode {
+  /* Light mode specific styles */
+}
+
+/* App Container */
+.app-container {
+  display: flex;
+  height: 100vh;
+  width: 100%;
+  position: relative;
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes pulse {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+}
+
+@keyframes typing {
+  0%, 80%, 100% {
+    transform: scale(0.8);
+    opacity: 0.5;
+  }
+  40% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+/* Enhanced Focus States */
+button:focus-visible,
+input:focus-visible,
+textarea:focus-visible {
+  outline: 2px solid var(--accent-secondary);
+  outline-offset: 2px;
+}
+
+/* Smooth scrollbar for webkit browsers */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--border-color) transparent;
+}
+
+*::-webkit-scrollbar {
+  width: 6px;
+}
+
+*::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+*::-webkit-scrollbar-thumb {
+  background: var(--border-color);
+  border-radius: 3px;
+}
+
+/* Custom selection colors */
+::selection {
+  background: var(--accent-secondary);
   color: white;
 }
 
-.App-link {
-  color: #61dafb;
+/* Loading states */
+.loading {
+  pointer-events: none;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
+/* Glass effect enhancement for better visual hierarchy */
+.glass-effect {
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  background: var(--bg-glass);
+  border: 1px solid var(--border-color);
+}
+
+/* Improved contrast for accessibility */
+.high-contrast {
+  --text-primary: #000000;
+  --text-secondary: #333333;
+  --bg-secondary: #ffffff;
+}
+
+body.dark-mode.high-contrast {
+  --text-primary: #ffffff;
+  --text-secondary: #cccccc;
+  --bg-secondary: #000000;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .app-container {
+    flex-direction: column;
   }
-  to {
-    transform: rotate(360deg);
+}
+
+@media (max-width: 480px) {
+  body {
+    font-size: 14px;
   }
 }
